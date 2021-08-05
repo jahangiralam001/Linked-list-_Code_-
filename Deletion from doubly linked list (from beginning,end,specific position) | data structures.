@@ -1,0 +1,159 @@
+#include<stdio.h>
+#include<stdlib.h>
+///If you find any wrong in this code please inform me
+struct node
+{
+   int data;
+   struct node*previous;
+   struct node*next;
+ };
+
+struct node *head,*j,*new_node,*temp,*Tail_temp;
+int k,E;
+void mal()
+{
+   new_node = (struct node*)malloc(sizeof(struct node));
+}
+
+void main()
+{
+
+   CreatingNew_node(1);
+
+   k = getleangth();
+   Delete_from_First();
+   Delete_from_End();
+   Delete_from_GivenLocaton();
+
+}
+
+
+
+void CreatingNew_node(int choice)
+{
+   int run = choice;
+   head = 0;
+
+   while(run)
+   {
+      mal();
+      printf("Enter you Data\n");
+      scanf("%d",&new_node->data);
+      new_node->previous = 0;
+      new_node->next = 0;
+      if(head == 0){
+         head = new_node;
+         temp = new_node;
+      }
+      else{
+         temp->next = new_node;
+         new_node->previous = temp;
+         temp = new_node;
+
+      }
+
+      printf("Do you want to create more nodes\n press 1 or 0\n");
+      scanf("%d",&run);
+   }
+   Display();
+
+}
+
+void Display()
+{
+   temp = head;
+   printf("\nAll your Data is\n");
+   while(temp!=0)
+   {
+      printf(" %d ",temp->data);
+      temp = temp->next;
+   }
+   printf("\n");
+}
+int getleangth()
+{
+   temp = head;
+   int count = 0;
+   while(temp!=0)
+   {
+      count++;
+      temp = temp->next;
+   }
+   return count;
+}
+
+void Delete_from_First()
+{
+   if(head == 0){
+      printf("List is emptly\n");
+   }
+
+   else{
+         printf("\nAfter delete from first");
+       temp = head;
+       head = head->next;
+       head->previous = 0;
+       free(temp);
+       Display();
+    }
+    getleangth();
+
+}
+void Delete_from_End()
+{
+   if(head == 0){
+      printf("List is emptly\n");
+   }
+   else{
+         temp = head;
+
+   while(temp->next!=0)
+   {
+      temp = temp->next;
+   }
+         printf("\nAfter delete from end");
+   Tail_temp = temp;
+  temp->previous->next = 0;
+  temp = temp->previous;
+  Tail_temp->previous = 0;
+  free(Tail_temp);
+  Display();
+  }
+  E = getleangth();
+
+}
+
+void Delete_from_GivenLocaton()
+{
+   int n;
+
+   printf("Your possition must be less than equal %d or greater than",E);
+   printf("\nEnter your possition\n");
+   scanf("%d",&n);
+   if(n>k || n==0){
+      printf("Invalid possition\n");
+   }
+   if(n==1){
+      Delete_from_First();
+   }
+   if(n==E)//it can be k Also if you don't call the delete from end
+      {
+      Delete_from_End();
+   }
+   else{
+         printf("\nAfter delete from GivenLocaton");
+      temp = head;
+      int i=1;
+      while(i<n)
+      {
+         temp = temp->next;
+         i++;
+      }
+      Tail_temp = temp;
+      temp->previous->next = Tail_temp->next;
+      j = Tail_temp->next; //You can edit it also by not taking this j.
+      j->previous =  temp->previous;
+      free(Tail_temp);
+      Display();
+   }
+}
